@@ -13,12 +13,20 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
     
-        const { getUser } = getKindeServerSession();
+        const { getUser,getPermission } = getKindeServerSession();
         const user = await getUser();
+        console.log(user);
 
 
       if (!user) throw new UploadThingError("Unauthorized");
- 
+
+
+      const createProductPermission = await getPermission("create:Product");
+      console.log(createProductPermission);
+        if(!createProductPermission?.isGranted){
+          throw new UploadThingError("Unauthorized");
+        }
+        
      
       return { userId: user.id };
     })
