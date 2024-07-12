@@ -15,7 +15,7 @@ export const ourFileRouter = {
     
         const { getUser,getPermission } = getKindeServerSession();
         const user = await getUser();
-        console.log(user);
+        // console.log(user);
 
 
       if (!user) throw new UploadThingError("Unauthorized");

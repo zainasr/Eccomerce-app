@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import jwksClient from "jwks-rsa";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/db";
-import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+// import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 
 
 
@@ -46,7 +46,8 @@ export async function POST(req: Request) {
             const isAdmin=(user.organizations[0].roles[0].key !=="basic_user");
             
             
-  
+            
+
             await prisma.user.create({
   
   
