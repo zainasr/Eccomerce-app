@@ -40,6 +40,17 @@ model Product {
   updatedAt    DateTime @updatedAt
 }
 
+model Banner {
+  id          String @id @default(uuid())
+  title       String
+  imageString String
+
+  createdAt DateTime @default(now())
+}
+
+
+
+
 enum ProductStatus {
   draft
   published

@@ -3,7 +3,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
-import {  productSchema } from "../src/lib/zodSchema";
+import {  bannerSchema, productSchema } from "../src/lib/zodSchema";
 import prisma from "./lib/db";
 
 // import { revalidatePath } from "next/cache";
@@ -103,4 +103,56 @@ export async function deleteProduct(formData: FormData) {
   });
 
   redirect("/dashboard/products");
+}
+
+export async function createBanner(prevState: any, formData: FormData) {
+  const { getUser,getPermission } = getKindeServerSession();
+ 
+
+
+  const user = await getUser();
+
+  const permission = await getPermission("create:Product");
+  if (!user || !permission?.isGranted) {
+    return redirect("/");
+  }
+
+ 
+
+  const submission = parseWithZod(formData, {
+    schema: bannerSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  await prisma.banner.create({
+    data: {
+      title: submission.value.title,
+      imageString: submission.value.imageString,
+    },
+  });
+
+  redirect("/dashboard/banner");
+}
+
+export async function deleteBanner(formData: FormData) {
+  const { getUser,getPermission } = getKindeServerSession();
+
+  const user = await getUser();
+  const permission = await getPermission("delete:Product");
+  if (!user || !permission?.isGranted) {
+    return redirect("/");
+  }
+
+  
+
+  await prisma.banner.delete({
+    where: {
+      id: formData.get("bannerId") as string,
+    },
+  });
+
+  redirect("/dashboard/banner");
 }
