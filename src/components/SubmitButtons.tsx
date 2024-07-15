@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Loader2, ShoppingBag } from "lucide-react";
+import { Loader2,  Plus, ShoppingBag,MinusIcon } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 interface buttonProps {
@@ -53,6 +53,47 @@ export function ShoppingBagButton() {
   );
 }
 
+export function Add() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Button disabled size="sm" className="w-full mt-5">
+          <Loader2 className="mr-4 h-5 w-5 animate-spin" />
+        </Button>
+      ) : (
+        <Button size="sm" className="w-full mt-5 items-center" type="submit">
+          <Plus className="mr-4 h-5 w-5" />
+        </Button>
+      )}
+    </>
+  );
+}
+
+export function Minus() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Button disabled size="sm" className="w-full mt-5">
+          <Loader2 className="mr-4 h-5 w-5 animate-spin" />
+        </Button>
+      ) : (
+        <Button size="sm" className="w-full mt-5 text-center" type="submit">
+         <MinusIcon className="mr-4 h-5 w-5" />
+        </Button>
+      )}
+    </>
+  );
+}
+
+
+
+
+
+
 export function DeleteItem() {
   const { pending } = useFormStatus();
 
@@ -63,9 +104,9 @@ export function DeleteItem() {
           Removing...
         </button>
       ) : (
-        <button type="submit" className="font-medium text-primary text-end">
+        <Button type="submit" className="font-medium text-primary text-end">
           Delete
-        </button>
+        </Button>
       )}
     </>
   );

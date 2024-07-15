@@ -16,6 +16,7 @@ import { redirect } from "next/navigation";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { unstable_noStore as noStore } from "next/cache";
 import { DashboardNavigation } from "@/components/DashboardNavigation";
+import { UserDropdown } from "@/components/UserDropdown";
 
 export default async function DashboardLayout({
   children,
@@ -23,8 +24,14 @@ export default async function DashboardLayout({
   children: ReactNode;
 }) {
   noStore();
-  const { getUser } = getKindeServerSession();
+  const { getUser, getPermission } = getKindeServerSession();
   const user = await getUser();
+
+  const permission = await getPermission("dashboard:Access");
+  if (!user || !permission?.isGranted) {
+    return redirect("/");
+  }
+
 
   return (
     <div className="flex w-full flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,22 +56,17 @@ export default async function DashboardLayout({
             </nav>
           </SheetContent>
         </Sheet>
+         
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="secondary" size="icon" className="rounded-full">
-              <CircleUser className="w-5 h-5" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <LogoutLink>Logout</LogoutLink>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </header>
+              <UserDropdown
+              email={user.email as string}
+              name={user.given_name as string}
+              userImage={
+                user.picture ?? `https://avatar.vercel.sh/${user.given_name}`
+              }
+            />
+
+             </header>
       <main className="my-5">{children}</main>
     </div>
   );
