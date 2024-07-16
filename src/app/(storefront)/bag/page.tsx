@@ -11,7 +11,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { redis } from "@/lib/redis";
 import { Cart } from "@/lib/interfaces";
-import { AddQuantityPerItem, RemoveQuantityPerItem, delItem } from "@/actions";
+import { AddQuantityPerItem, RemoveQuantityPerItem, checkOut, delItem } from "@/actions";
 import { Add, ChceckoutButton, DeleteItem, Minus } from "@/components/SubmitButtons";
 
 export default async function BagRoute() {
@@ -96,7 +96,9 @@ export default async function BagRoute() {
             </div>
 
             
+            <form action={checkOut}>
             <ChceckoutButton />
+            </form>
             
           </div>
         </div>
