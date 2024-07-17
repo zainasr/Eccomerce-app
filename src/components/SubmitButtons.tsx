@@ -104,7 +104,7 @@ export function DeleteItem() {
           Removing...
         </button>
       ) : (
-        <Button type="submit" className="font-medium text-primary text-end">
+        <Button type="submit" className="font-medium text-primary text-end text-white">
           Delete
         </Button>
       )}

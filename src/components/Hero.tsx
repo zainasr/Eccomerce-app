@@ -22,6 +22,11 @@ async function getData() {
 export async function Hero() {
   const data = await getData();
 
+
+  if(!data.length) {
+   
+    return null;}
+
   return (
     <Carousel>
       <CarouselContent>
