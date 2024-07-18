@@ -12,7 +12,6 @@ import { stripe } from "./lib/stripe";
 import Stripe from "stripe";
 
 
-// import { revalidatePath } from "next/cache";
 
 
 export async function createProduct(prevState: unknown, formData: FormData) {

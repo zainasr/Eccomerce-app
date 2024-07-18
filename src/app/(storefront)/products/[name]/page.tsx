@@ -1,5 +1,5 @@
 
-// import prisma from "@/app/lib/db";
+
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/db";
@@ -7,7 +7,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Prisma } from "@prisma/client";
 
 async function getData(productFor: string,categoryType?: string | string[] | null,min?:string,max?:string) {
-  // console.log(productFor,categoryType,min,max);
+  
 
   const whereClause = {
     status: "published",

@@ -1,5 +1,4 @@
-// import { checkOut, delItem } from "@/app/actions";
-// import { ChceckoutButton, DeleteItem } from "@/app/components/SubmitButtons";
+
 
 import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -7,7 +6,6 @@ import {  ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
-
 import { redirect } from "next/navigation";
 import { redis } from "@/lib/redis";
 import { Cart } from "@/lib/interfaces";
