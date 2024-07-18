@@ -35,6 +35,7 @@ model Product {
   price       Int
   images      String[]
   category    Category
+  categoryType CategoryType
   isFeatured  Boolean       @default(false)
 
   createdAt DateTime @default(now())
@@ -76,4 +77,10 @@ enum Category {
   men
   women
   kids
+}
+enum CategoryType {
+  Clothing
+  Footwear
+  Accessories
+  Electronics
 }

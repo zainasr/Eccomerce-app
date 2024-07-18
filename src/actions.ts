@@ -46,6 +46,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       price: submission.value.price,
       images: flattenUrls,
       category: submission.value.category,
+      categoryType:submission.value.categoryType,
       isFeatured: submission.value.isFeatured === true ? true : false,
     },
   });
@@ -83,6 +84,7 @@ export async function editProduct(prevState: any, formData: FormData) {
       name: submission.value.name,
       description: submission.value.description,
       category: submission.value.category,
+      categoryType:submission.value.categoryType,
       price: submission.value.price,
       isFeatured: submission.value.isFeatured === true ? true : false,
       status: submission.value.status,

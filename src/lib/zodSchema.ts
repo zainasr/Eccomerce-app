@@ -7,8 +7,12 @@ export const productSchema = z.object({
   price: z.number().min(1),
   images: z.array(z.string()).min(1, "At least one image is required"),
   category: z.enum(["men", "women", "kids"]),
+  categoryType:z.enum(["Clothing","Footwear","Accessories","Electronics"]),
   isFeatured: z.boolean().optional(),
 });
+
+
+
 
 
 export const bannerSchema = z.object({

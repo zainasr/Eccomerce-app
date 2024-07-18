@@ -29,13 +29,13 @@ import { productSchema } from "../../../../lib/zodSchema";
 import { useState } from "react";
 
 import Image from "next/image";
-import { categories } from "../../../../lib/categories";
+import { categories,categoriesType } from "../../../../lib/categories";
 import { SubmitButton } from "@/components/SubmitButtons";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { createProduct } from "@/actions";
 
 export default function ProductCreateRoute() {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>([""]);
   const [lastResult, action] = useFormState(createProduct, undefined);
   const [form, fields] = useForm({
     lastResult,
@@ -156,6 +156,27 @@ export default function ProductCreateRoute() {
                 </SelectContent>
               </Select>
               <p className="text-red-500">{fields.category.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Type</Label>
+              <Select
+                key={fields.categoryType.key}
+                name={fields.categoryType.name}
+                defaultValue={fields.categoryType.initialValue}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categoriesType.map((categoryType) => (
+                    <SelectItem key={categoryType.id} value={categoryType.name}>
+                      {categoryType.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-red-500">{fields.categoryType.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">

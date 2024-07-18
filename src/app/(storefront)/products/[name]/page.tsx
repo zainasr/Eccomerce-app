@@ -4,10 +4,52 @@ import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/db";
 import { ProductCard } from "@/components/ProductCard";
+import { Prisma } from "@prisma/client";
 
-async function getData(productCategory: string) {
-  switch (productCategory) {
+async function getData(productFor: string,categoryType?: string | string[] | null,min?:string,max?:string) {
+  // console.log(productFor,categoryType,min,max);
+
+  const whereClause = {
+    status: "published",
+  } as {
+    status: string;
+    categoryType?: string;
+    price?: { gte?: number; lte?: number };
+    
+  };
+  if (categoryType) {
+    whereClause.categoryType = categoryType as string;
+  }
+
+  if (min && !max) {
+    whereClause.price = {
+      gte: parseInt(min),
+    };
+  }
+
+  if (!min && max) {
+    whereClause.price = {
+      lte: parseInt(max),
+    };
+  }
+
+  if (min && max) {
+    whereClause.price = {
+      gte: parseInt(min),
+      lte: parseInt(max),
+    };
+  }
+
+
+  
+  switch (productFor) {
+
+    
+
     case "all": {
+      const whereAll={
+        ...whereClause,
+      } as Prisma.ProductWhereInput 
       const data = await prisma.product.findMany({
         select: {
           name: true,
@@ -16,9 +58,7 @@ async function getData(productCategory: string) {
           id: true,
           description: true,
         },
-        where: {
-          status: "published",
-        },
+        where:whereAll,
       });
 
       return {
@@ -27,11 +67,15 @@ async function getData(productCategory: string) {
       };
     }
     case "men": {
+     const whereMen={
+      
+      category: "men",
+      ...whereClause,
+
+    } as Prisma.ProductWhereInput ;
+       
       const data = await prisma.product.findMany({
-        where: {
-          status: "published",
-          category: "men",
-        },
+        where:whereMen,
         select: {
           name: true,
           images: true,
@@ -47,11 +91,16 @@ async function getData(productCategory: string) {
       };
     }
     case "women": {
+
+      const whereWomen={
+      
+        category: "women",
+        ...whereClause,
+  
+      } as Prisma.ProductWhereInput 
+      
       const data = await prisma.product.findMany({
-        where: {
-          status: "published",
-          category: "women",
-        },
+        where:whereWomen,
         select: {
           name: true,
           images: true,
@@ -67,11 +116,16 @@ async function getData(productCategory: string) {
       };
     }
     case "kids": {
+      const whereKids={
+      
+        category: "kids",
+        ...whereClause,
+  
+      } as Prisma.ProductWhereInput 
+
       const data = await prisma.product.findMany({
-        where: {
-          status: "published",
-          category: "kids",
-        },
+        where: whereKids,  
+        
         select: {
           name: true,
           images: true,
@@ -94,11 +148,17 @@ async function getData(productCategory: string) {
 
 export default async function CategoriesPage({
   params,
+  searchParams,
 }: {
-  params: { name: string };
+  params: { name: string },
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   noStore();
-  const { data, title } = await getData(params.name);
+  const category = searchParams.category || null;
+  const min = searchParams.min || null;
+  const max = searchParams.max || null;
+  const { data, title } = await getData(params.name, category,min as string,max as string); 
+  
   return (
     <section>
       <h1 className="font-semibold text-3xl my-5">{title}</h1>
