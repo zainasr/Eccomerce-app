@@ -345,11 +345,11 @@ export async function checkOut() {
       success_url:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/payment/success"
-          : "https://shoe-marshal.vercel.app/payment/success",
+          : "https://malik-ecomerce.vercel.app/payment/success",
       cancel_url:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/payment/cancel"
-          : "https://shoe-marshal.vercel.app/payment/cancel",
+          : "https://malik-ecomerce.vercel.app/payment/cancel",
       metadata: {
         userId: user.id,
       },
