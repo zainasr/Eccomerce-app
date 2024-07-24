@@ -8,7 +8,7 @@ image:
   repository: iamzainn/eccomerce-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1"
+  tag: "f663c99b1c83e68e95fdd48623588a807ff778e3"
 
 ingress:
   enabled: false
