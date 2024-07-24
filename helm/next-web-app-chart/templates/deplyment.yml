@@ -1,0 +1,25 @@
+# This is a sample deployment manifest file for a simple web application.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-web-ecommerce-app
+  labels:
+    app: next-web-ecommerce-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: next-web-ecommerce-app
+  template:
+    metadata:
+      labels:
+        app: next-web-ecommerce-app
+    spec:
+      containers:
+      - name: next-app-container
+        image: iamzainn/eccomerce-app:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - secretRef:
+            name: next-web-ecommerce-app-secrets
