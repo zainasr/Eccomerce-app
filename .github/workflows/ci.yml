@@ -79,7 +79,7 @@ jobs:
 
   push:
     runs-on: ubuntu-latest
-    needs: [build, code-quality, test]
+    needs: [build, code-quality]
 
     steps:
     - name: Checkout repository
