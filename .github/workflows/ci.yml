@@ -13,6 +13,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      KINDE_CLIENT_ID: ${{ secrets.KINDE_CLIENT_ID }}
+      KINDE_CLIENT_SECRET: ${{ secrets.KINDE_CLIENT_SECRET }}
+      KINDE_ISSUER_URL: ${{ secrets.KINDE_ISSUER_URL }}
+      KINDE_SITE_URL: http://malikeccomerceapp.com
+      KINDE_POST_LOGOUT_REDIRECT_URL: http://malikeccomerceapp.com
+      KINDE_POST_LOGIN_REDIRECT_URL: http://malikeccomerceapp.com/dashboard
+      UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
+      UPLOADTHING_APP_ID: ${{ secrets.UPLOADTHING_APP_ID }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      REDIS_URL: ${{ secrets.REDIS_URL }}
+      REDIS_TOKEN: ${{ secrets.REDIS_TOKEN }}
+      STRIPE_API_KEY: ${{ secrets.STRIPE_LIVE_API_KEY }}
+      STRIPE_SECRET_WEBHOOK: ${{ secrets.STRIPE_LIVE_WEBHOOK_SECRET }}
 
     steps:
     - name: Checkout repository
@@ -35,7 +49,7 @@ jobs:
         path: .next
         key: ${{ runner.os }}-nextjs-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
 
-  code-quality:
+code-quality:
     runs-on: ubuntu-latest
 
     steps:
