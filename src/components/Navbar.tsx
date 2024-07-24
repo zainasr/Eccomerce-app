@@ -34,7 +34,7 @@ export async function Navbar()
       <div className="flex items-center">
         <Link href="/">
           <h1 className="text-black font-bold text-xl lg:text-3xl">
-            E<span className="text-primary">App</span>
+            EA<span className="text-primary">App</span>
           </h1>
         </Link>
         <NavbarLinks />
