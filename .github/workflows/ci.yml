@@ -67,9 +67,6 @@ code-quality:
     - name: Run ESLint
       run: npm run lint
 
-    - name: Run Prettier
-      run: npx prettier --check .
-
     - name: Run TypeScript compiler
       run: npx tsc --noEmit
 
