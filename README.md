@@ -6,9 +6,7 @@ A full-stack, modern, and scalable **eCommerce web application** built using **N
 
 ## 🚀 Live Deployment
 
-> ⚠️ Currently redeploying AWS infrastructure. The live deployment link will be added soon.  
-> Source code is available and fully functional.
-
+> Currently off due to Billing of AWS Services
 ---
 
 ## 📦 Features
