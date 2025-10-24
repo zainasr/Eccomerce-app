@@ -1,4 +1,4 @@
-# 🛒 Malik Ecommerce Platform
+# Ecommerce Platform
 
 A full-stack, modern, and scalable **eCommerce web application** built using **Next.js**, **TypeScript**, and **PostgreSQL** with advanced features including **admin dashboard**, **image uploads**, and **CI/CD pipeline integration** using **GitHub Actions** and **AWS (EKS + Helm)** for deployment.
 
